@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import ImgProfile from "@/public/images/about/profile.jpg";
 
 export default function About() {
   return (
@@ -66,9 +67,6 @@ export default function About() {
                 <span className="bg-black text-white px-4 py-2 text-sm font-semibold">
                   Database
                 </span>
-                <span className="bg-black text-white px-4 py-2 text-sm font-semibold">
-                  DevOps
-                </span>
               </div>
             </div>
           </div>
@@ -77,7 +75,7 @@ export default function About() {
             <div className="w-full h-96 bg-black relative overflow-hidden border-4 border-black">
               {/* Free example image from Unsplash */}
               <Image
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=800&fit=crop&crop=faces"
+                src={ImgProfile}
                 alt="Developer Portrait"
                 fill
                 className="object-cover grayscale"

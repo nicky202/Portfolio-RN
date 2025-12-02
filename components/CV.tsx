@@ -8,7 +8,7 @@ export default function CV() {
 
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = "/documents/CV_Rabesoa_Nicky.pdf";
+    link.href = "/public/documents/CV_Rabesoa_Nicky.pdf";
     link.download = "CV_Rabesoa_Nicky.pdf";
     link.click();
   };
@@ -90,10 +90,10 @@ export default function CV() {
                       <div className="w-2 h-2 bg-black" />
                       <span>API Development & Integration</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-black" />
                       <span>DevOps & Deployment</span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 

@@ -3,15 +3,18 @@
 import { motion } from "framer-motion";
 
 const skills = [
-  { name: "React", level: 90, category: "Frontend" },
-  { name: "TypeScript", level: 85, category: "Fullstack" },
-  { name: "Next.js", level: 88, category: "Fullstack" },
-  { name: "Node.js", level: 85, category: "Backend" },
-  { name: "Express.js", level: 80, category: "Backend" },
-  { name: "MongoDB", level: 75, category: "Database" },
-  { name: "PostgreSQL", level: 78, category: "Database" },
-  { name: "CSS/Tailwind", level: 92, category: "Frontend" },
-  { name: "JavaScript", level: 90, category: "Fullstack" },
+  { name: "React", level: 80, category: "Frontend" },
+  { name: "Django", level: 75, category: "Backend" },
+  { name: "TypeScript", level: 70, category: "Fullstack" },
+  { name: "Next.js", level: 65, category: "Fullstack" },
+  { name: "Node.js", level: 70, category: "Backend" },
+  { name: "Express.js", level: 70, category: "Backend" },
+  { name: "MongoDB", level: 65, category: "Database" },
+  { name: "PostgreSQL", level: 75, category: "Database" },
+  { name: "CSS/Tailwind", level: 90, category: "Frontend" },
+  { name: "JavaScript", level: 85, category: "Fullstack" },
+  { name: "Python", level: 80, category: "Fullstack" },
+  { name: "Docker", level: 65, category: "Fullstack" },
 ];
 
 export default function Skills() {
