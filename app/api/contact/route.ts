@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Defer Resend instantiation to avoid build-time errors when API key is not set
+const getResendClient = () => {
+  if (!process.env.RESEND_API_KEY) {
+    return null;
+  }
+  return new Resend(process.env.RESEND_API_KEY);
+};
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,6 +45,18 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     try {
+      const resend = getResendClient();
+      if (!resend) {
+        console.error("Resend client could not be initialized");
+        return NextResponse.json(
+          {
+            error:
+              "Email service not configured. Please contact directly at rabesoanicky@gmail.com",
+          },
+          { status: 500 }
+        );
+      }
+      
       const { data, error } = await resend.emails.send({
         from: "Portfolio Contact <onboarding@resend.dev>", // You'll need to verify your domain with Resend
         to: "rabesoanicky@gmail.com",
