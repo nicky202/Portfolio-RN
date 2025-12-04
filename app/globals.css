@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 5, 24;
+  --background-end-rgb: 15, 5, 24;
 }
 
 * {
@@ -19,75 +20,48 @@ html {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  min-height: 100vh;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-/* Geometric shapes */
-.geometric-shape {
-  clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%);
-}
-
-.geometric-shape-reverse {
-  clip-path: polygon(0% 15%, 100% 0%, 100% 100%, 0% 100%);
-}
-
-/* Unique geometric patterns */
-.hexagon {
-  clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
-}
-
-.octagon {
-  clip-path: polygon(
-    30% 0%,
-    70% 0%,
-    100% 30%,
-    100% 70%,
-    70% 100%,
-    30% 100%,
-    0% 70%,
-    0% 30%
-  );
-}
-
-.diamond {
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-}
-
-/* Gradient text effect */
-.gradient-text {
-  background: linear-gradient(135deg, #000000 0%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Animated border */
-.animated-border {
-  position: relative;
-  background: white;
-}
-
-.animated-border::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(45deg, #000, #3b82f6, #000);
-  border-radius: inherit;
-  z-index: -1;
-  animation: border-rotate 3s linear infinite;
-}
-
-@keyframes border-rotate {
-  0% {
-    transform: rotate(0deg);
+  
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
-  100% {
-    transform: rotate(360deg);
+  
+  .text-gradient {
+    background: linear-gradient(to right, #c084fc, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f0518;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3c1e5a;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5a2d85;
 }

@@ -8,24 +8,15 @@ export default function CV() {
 
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = "/public/documents/CV_Rabesoa_Nicky.pdf";
+    link.href = "/documents/CV_Rabesoa_Nicky.pdf";
     link.download = "CV_Rabesoa_Nicky.pdf";
     link.click();
   };
 
   return (
-    <section
-      id="cv"
-      className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
-    >
-      <div className="absolute top-0 left-0 w-96 h-96 border-4 border-gray-200 transform rotate-45 -translate-x-1/2 -translate-y-1/2 opacity-30" />
-      <div
-        className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600/5"
-        style={{
-          clipPath:
-            "polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)",
-        }}
-      />
+    <section id="cv" className="py-20 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
@@ -35,76 +26,56 @@ export default function CV() {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-5xl font-bold mb-6 text-center">
-            <span className="bg-black text-white px-3 py-1 inline-block">
-              RESUME / CV
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+            <span className="text-gradient">Resume</span>
           </h2>
-          <p className="text-center text-gray-700 mb-12 text-lg max-w-2xl mx-auto">
-            Download my resume to learn more about my experience, skills, and
-            projects
-          </p>
 
           <motion.div
-            className="bg-white border-4 border-black p-12 relative group"
+            className="glass-panel p-8 md:p-12 rounded-2xl relative group overflow-hidden"
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ y: -5 }}
             transition={{ duration: 0.3 }}
           >
-            <div
-              className="absolute top-4 right-4 w-16 h-16 border-2 border-black/20"
-              style={{
-                clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-              }}
-            />
-            <div
-              className="absolute bottom-4 left-4 w-12 h-12 bg-blue-600/10"
-              style={{
-                clipPath:
-                  "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
-              }}
-            />
+            {/* Decorative background glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            <div className="relative z-10">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                <div className="flex-1">
-                  <h3 className="text-3xl font-bold mb-4">
-                    Fullstack Developer
-                  </h3>
-                  <p className="text-gray-700 mb-6">
-                    Experienced in building scalable web applications with
-                    modern technologies. Passionate about clean code,
-                    architecture, and user experience.
-                  </p>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-black" />
-                      <span>Frontend & Backend Development</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-black" />
-                      <span>Database Design & Optimization</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-black" />
-                      <span>API Development & Integration</span>
-                    </div>
-                    {/* <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-black" />
-                      <span>DevOps & Deployment</span>
-                    </div> */}
-                  </div>
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
+                  Fullstack Developer
+                </h3>
+                <p className="text-gray-300 mb-6 leading-relaxed">
+                  Master's degree (Master 2) in Computer Science. Experienced in building
+                  scalable web applications with modern technologies. Passionate about
+                  clean code, architecture, and user experience.
+                </p>
+
+                <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-400">
+                  <span className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                    Frontend & Backend
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                    Database Design
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
+                    API Development
+                  </span>
                 </div>
+              </div>
 
-                <motion.button
-                  onClick={handleDownload}
-                  className="bg-black text-white px-10 py-6 font-semibold hover:bg-gray-800 transition-colors relative group/btn flex items-center gap-3"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+              <motion.button
+                onClick={handleDownload}
+                className="relative px-8 py-4 bg-gradient-to-r from-primary to-blue-600 rounded-xl font-bold text-white shadow-lg shadow-primary/25 overflow-hidden group/btn"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="relative z-10 flex items-center gap-3">
                   <svg
-                    className="w-6 h-6"
+                    className="w-5 h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -113,36 +84,26 @@ export default function CV() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                     />
                   </svg>
-                  <span>Download CV</span>
-                  <motion.div
-                    className="absolute inset-0 bg-blue-600 opacity-0 group-hover/btn:opacity-20 transition-opacity"
-                    animate={isHovered ? { x: [0, 100, 0] } : {}}
-                    transition={{ duration: 1, repeat: Infinity }}
-                  />
-                </motion.button>
-              </div>
+                  Download CV
+                </span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
+              </motion.button>
             </div>
           </motion.div>
 
-          {/* Alternative: View online CV */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mt-8 text-center"
           >
-            <p className="text-gray-600 mb-4">Or view online</p>
-            <motion.a
-              href="#contact"
-              className="text-blue-600 hover:text-blue-800 font-semibold underline"
-              whileHover={{ scale: 1.05 }}
-            >
-              Contact me for more details
-            </motion.a>
+            <p className="text-gray-500">
+              Prefer to chat? <a href="#contact" className="text-primary hover:text-accent transition-colors underline decoration-primary/30 hover:decoration-accent">Contact me</a> directly.
+            </p>
           </motion.div>
         </motion.div>
       </div>

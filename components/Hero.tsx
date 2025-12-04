@@ -1,174 +1,130 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import ImgProfile from "@/public/images/about/profile.jpg"; // Reusing the profile image
 
 export default function Hero() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-background"
     >
-      {/* Minimalist black and white geometric shapes */}
+      {/* Background Gradients */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Large circle */}
-        <motion.div
-          className="absolute top-10 right-10 w-32 h-32 border-2 border-black rounded-full opacity-20"
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        {/* Diamond */}
-        <motion.div
-          className="absolute bottom-20 left-20 w-40 h-40 border-2 border-black"
-          style={{
-            clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-          }}
-          animate={{
-            y: [0, -30, 0],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        {/* Square */}
-        <motion.div
-          className="absolute top-1/2 left-1/4 w-20 h-20 border-2 border-black opacity-30"
-          animate={{
-            rotate: [0, -360],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        {/* Triangle */}
-        <motion.div
-          className="absolute bottom-32 left-1/3"
-          style={{
-            width: 0,
-            height: 0,
-            borderLeft: "30px solid transparent",
-            borderRight: "30px solid transparent",
-            borderBottom: "52px solid black",
-            opacity: 0.2,
-          }}
-          animate={{
-            rotate: [0, 360],
-            y: [0, 15, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px]" />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-accent/10 rounded-full blur-[100px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10 w-full">
+        {/* Text Content */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
+          className="text-left"
         >
-          <motion.h1
-            className="text-6xl md:text-8xl font-bold mb-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+          <motion.h2
+            className="text-xl md:text-2xl font-medium text-secondary mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <span className="block">FULLSTACK</span>
-            <span className="block bg-black text-white px-4 py-2 mt-2">
-              DEVELOPER
-            </span>
+            Hello, I&apos;m
+          </motion.h2>
+          <motion.h1
+            className="text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Anurag <span className="text-primary">.</span>
           </motion.h1>
-          <motion.p
-            className="text-xl md:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+          <motion.h3
+            className="text-3xl md:text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Building end-to-end solutions with clean code, modern architecture,
-            and geometric precision
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            Front-End Developer
+          </motion.h3>
+          <motion.p
+            className="text-lg text-gray-400 mb-8 max-w-lg leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            A self-taught front-end developer with over 2 years of experience.
+            I build responsive and user-friendly websites & apps. I focus on
+            clean code and efficient design.
+          </motion.p>
+
+          <motion.div
+            className="flex flex-wrap gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
             <motion.a
+              href="#contact"
+              className="px-8 py-3 bg-gradient-to-r from-primary to-blue-600 rounded-full text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Contact Me
+            </motion.a>
+            <motion.a
               href="#projects"
-              className="bg-black text-white px-8 py-4 font-semibold hover:bg-gray-800 transition-colors inline-block"
+              className="px-8 py-3 glass-panel rounded-full text-white font-semibold hover:bg-white/10 transition-all border border-white/10"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               View Work
             </motion.a>
-            <motion.a
-              href="#cv"
-              className="border-2 border-black px-8 py-4 font-semibold hover:bg-black hover:text-white transition-colors inline-block relative group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="flex items-center gap-2">
-                Download CV
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-              </span>
-            </motion.a>
-            <motion.a
-              href="#contact"
-              className="border-2 border-black px-8 py-4 font-semibold hover:bg-black hover:text-white transition-colors inline-block"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get In Touch
-            </motion.a>
           </motion.div>
+        </motion.div>
+
+        {/* Image Content */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative hidden md:block"
+        >
+          <div className="relative w-[400px] h-[400px] mx-auto">
+            {/* Abstract Shapes around image */}
+            <motion.div
+              className="absolute inset-0 border-2 border-primary/30 rounded-full"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.div
+              className="absolute inset-4 border-2 border-accent/30 rounded-full"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            />
+
+            <div className="absolute inset-8 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl shadow-primary/20 bg-gradient-to-b from-white/5 to-transparent">
+              <Image
+                src={ImgProfile}
+                alt="Profile"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll Indicator */}
       <motion.div
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
-        <div className="w-6 h-10 border-2 border-black rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-black rounded-full mt-2" />
+        <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1">
+          <div className="w-1 h-3 bg-primary rounded-full" />
         </div>
       </motion.div>
     </section>
