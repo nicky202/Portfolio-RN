@@ -10,52 +10,47 @@ import ImgLaf3 from "@/public/images/projects/laf3.png";
 import ImgPureControl from "@/public/images/projects/purecontrol.png";
 import ImgPureControl2 from "@/public/images/projects/purecontrol2.png";
 import ImgPureControl3 from "@/public/images/projects/purecontrol3.png";
+import { useTranslation } from "react-i18next";
 
-const projects = [
+const staticProjectData = [
   {
-    title: "Saas - PureControl™",
-    description:
-      "End-to-end SaaS platform with authentication, partner accounts, billing, activity tracking, and an integrated 3D optimisation pipeline.",
     tech: ["React", "TypeScript", "Django", "PostgreSQL", "Docker", "Celery"],
     image: ImgPureControl,
     images: [ImgPureControl, ImgPureControl2, ImgPureControl3],
-    type: "Featured Project",
   },
   {
-    title: "Aligneurs Français",
-    description:
-      "SaaS platform for managing invisible aligner treatments, with practitioner and patient dashboards.",
     tech: ["React.js", "Django", "PostgreSQL", "Docker", "Celery", "Redis"],
     image: ImgLaf,
     images: [ImgLaf, ImgLaf2, ImgLaf3],
-    type: "Featured Project",
   },
   {
-    title: "Portfolio",
-    description:
-      "Modern, high-performance portfolio with unique geometric design and smooth animations.",
     tech: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
     image: ImgPortfolio,
     images: [ImgPortfolio],
-    type: "Personal Project",
   },
 ];
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState<
-    (typeof projects)[0] | null
-  >(null);
+  const { t } = useTranslation();
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState<number | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const openModal = (project: (typeof projects)[0]) => {
-    setSelectedProject(project);
+  const translatedProjects = (t("projects.items", { returnObjects: true }) as any[]).map((item, index) => ({
+    ...item,
+    ...staticProjectData[index],
+  }));
+
+  const openModal = (index: number) => {
+    setSelectedProjectIndex(index);
     setCurrentImageIndex(0);
   };
 
   const closeModal = () => {
-    setSelectedProject(null);
+    setSelectedProjectIndex(null);
     setCurrentImageIndex(0);
   };
+
+  const selectedProject = selectedProjectIndex !== null ? translatedProjects[selectedProjectIndex] : null;
 
   const nextImage = () => {
     if (selectedProject) {
@@ -85,15 +80,15 @@ export default function Projects() {
             className="text-center mb-20"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="text-gradient">Recent Work</span>
+              <span className="text-gradient">{t("projects.title")}</span>
             </h2>
-            <p className="text-gray-400">A collection of projects I&apos;ve worked on</p>
+            <p className="text-foreground/60">{t("projects.subtitle")}</p>
           </motion.div>
 
           <div className="space-y-32">
-            {projects.map((project, index) => (
+            {translatedProjects.map((project, index) => (
               <motion.div
-                key={project.title}
+                key={index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -106,17 +101,17 @@ export default function Projects() {
                   <div className="text-accent font-medium tracking-wider text-sm">
                     {project.type}
                   </div>
-                  <h3 className="text-3xl font-bold text-white">{project.title}</h3>
+                  <h3 className="text-3xl font-bold text-foreground">{project.title}</h3>
 
-                  <div className="glass-panel p-6 rounded-xl text-gray-300 leading-relaxed shadow-lg">
+                  <div className="glass-panel p-6 rounded-xl text-foreground/80 leading-relaxed shadow-lg">
                     {project.description}
                   </div>
 
                   <div className="flex flex-wrap gap-3">
-                    {project.tech.map((tech) => (
+                    {project.tech.map((tech: string) => (
                       <span
                         key={tech}
-                        className="text-gray-400 text-sm font-medium"
+                        className="text-foreground/60 text-sm font-medium"
                       >
                         {tech}
                       </span>
@@ -125,12 +120,12 @@ export default function Projects() {
 
                   <div className="flex gap-4 pt-4">
                     <button
-                      onClick={() => openModal(project)}
-                      className="text-white hover:text-primary transition-colors"
+                      onClick={() => openModal(index)}
+                      className="text-foreground hover:text-primary transition-colors"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                     </button>
-                    <a href="#" className="text-white hover:text-primary transition-colors">
+                    <a href="#" className="text-foreground hover:text-primary transition-colors">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                     </a>
                   </div>
@@ -139,9 +134,9 @@ export default function Projects() {
                 {/* Project Image */}
                 <div
                   className="flex-1 relative group cursor-pointer"
-                  onClick={() => openModal(project)}
+                  onClick={() => openModal(index)}
                 >
-                  <div className="relative h-[300px] md:h-[400px] w-full rounded-xl overflow-hidden border border-white/10 shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
+                  <div className="relative h-[300px] md:h-[400px] w-full rounded-xl overflow-hidden border border-foreground/10 shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
                     <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay" />
                     <Image
                       src={project.image}
@@ -174,14 +169,14 @@ export default function Projects() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-6xl w-full max-h-[90vh] bg-[#1a1a1a] rounded-2xl overflow-hidden border border-white/10"
+              className="relative max-w-6xl w-full max-h-[90vh] bg-background rounded-2xl overflow-hidden border border-foreground/10"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between p-6 border-b border-white/10">
-                <h3 className="text-2xl font-bold text-white">{selectedProject.title}</h3>
+              <div className="flex items-center justify-between p-6 border-b border-foreground/10">
+                <h3 className="text-2xl font-bold text-foreground">{selectedProject.title}</h3>
                 <button
                   onClick={closeModal}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-foreground/60 hover:text-foreground transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
@@ -226,15 +221,15 @@ export default function Projects() {
               </div>
 
               {selectedProject.images.length > 1 && (
-                <div className="p-4 bg-black/20 border-t border-white/10">
+                <div className="p-4 bg-black/20 border-t border-foreground/10">
                   <div className="flex gap-2 justify-center overflow-x-auto">
-                    {selectedProject.images.map((img, index) => (
+                    {selectedProject.images.map((img: any, index: number) => (
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
                         className={`relative w-20 h-16 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${index === currentImageIndex
-                            ? "border-primary"
-                            : "border-transparent opacity-50 hover:opacity-100"
+                          ? "border-primary"
+                          : "border-transparent opacity-50 hover:opacity-100"
                           }`}
                       >
                         <Image

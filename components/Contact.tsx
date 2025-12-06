@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Contact() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,14 +36,14 @@ export default function Contact() {
 
       setSubmitStatus({
         type: "success",
-        message: "Opening your email client...",
+        message: t("contact.success"),
       });
 
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       setSubmitStatus({
         type: "error",
-        message: "Something went wrong. Please try again.",
+        message: t("contact.error"),
       });
     } finally {
       setIsSubmitting(false);
@@ -77,11 +79,11 @@ export default function Contact() {
         >
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="text-gradient">Contact</span>
+              <span className="text-gradient">{t("contact.title")}</span>
             </h2>
-            <h3 className="text-2xl font-semibold text-white mb-2">Drop me a message</h3>
-            <p className="text-gray-400">
-              I&apos;d love to hear from you. Send me a message and I&apos;ll get back to you as soon as possible.
+            <h3 className="text-2xl font-semibold text-foreground mb-2">{t("contact.title")}</h3>
+            <p className="text-foreground/60">
+              {t("contact.title")}
             </p>
           </div>
 
@@ -92,44 +94,44 @@ export default function Contact() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium text-gray-300 ml-1">Name</label>
+                <label htmlFor="name" className="text-sm font-medium text-foreground/80 ml-1">Name</label>
                 <input
                   type="text"
                   name="name"
                   id="name"
-                  placeholder="Your Name"
+                  placeholder={t("contact.namePlaceholder")}
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+                  className="w-full bg-black/20 border border-foreground/10 rounded-lg px-4 py-3 text-foreground placeholder-foreground/40 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-gray-300 ml-1">Email</label>
+                <label htmlFor="email" className="text-sm font-medium text-foreground/80 ml-1">Email</label>
                 <input
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="your.email@example.com"
+                  placeholder={t("contact.emailPlaceholder")}
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
+                  className="w-full bg-black/20 border border-foreground/10 rounded-lg px-4 py-3 text-foreground placeholder-foreground/40 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium text-gray-300 ml-1">Message</label>
+                <label htmlFor="message" className="text-sm font-medium text-foreground/80 ml-1">Message</label>
                 <textarea
                   name="message"
                   id="message"
-                  placeholder="How can I help you?"
+                  placeholder={t("contact.messagePlaceholder")}
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all resize-none"
+                  className="w-full bg-black/20 border border-foreground/10 rounded-lg px-4 py-3 text-foreground placeholder-foreground/40 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all resize-none"
                 />
               </div>
 
@@ -138,8 +140,8 @@ export default function Contact() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className={`p-3 rounded-lg text-sm ${submitStatus.type === "success"
-                      ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                      : "bg-red-500/20 text-red-300 border border-red-500/30"
+                    ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                    : "bg-red-500/20 text-red-300 border border-red-500/30"
                     }`}
                 >
                   {submitStatus.message}
@@ -153,7 +155,7 @@ export default function Contact() {
                 whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? "Sending..." : t("contact.sendBtn")}
               </motion.button>
             </form>
           </div>

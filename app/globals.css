@@ -2,10 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 15, 5, 24;
-  --background-end-rgb: 15, 5, 24;
+@layer base {
+  :root {
+    /* Light Mode Colors */
+    --background: 250 250 250;
+    /* Very light gray/white */
+    --foreground: 15 5 24;
+    /* Dark text */
+    --primary: 124 58 237;
+    /* Purple */
+    --secondary: 167 139 250;
+    /* Light Purple */
+    --accent: 14 165 233;
+    /* Sky Blue */
+    --card: 255 255 255;
+    /* White card */
+    --card-opacity: 0.8;
+  }
+
+  .dark {
+    /* Dark Mode Colors (Matching original design) */
+    --background: 15 5 24;
+    --foreground: 255 255 255;
+    --primary: 157 78 221;
+    /* #9d4edd */
+    --secondary: 224 170 255;
+    /* #e0aaff */
+    --accent: 76 201 240;
+    /* #4cc9f0 */
+    --card: 255 255 255;
+    --card-opacity: 0.05;
+  }
 }
 
 * {
@@ -19,29 +46,25 @@ html {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .glass-panel {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(var(--card), var(--card-opacity));
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(var(--foreground), 0.1);
   }
-  
+
   .text-gradient {
-    background: linear-gradient(to right, #c084fc, #6366f1);
+    background: linear-gradient(to right, rgb(var(--primary)), rgb(var(--accent)));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -54,14 +77,15 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f0518;
+  background: rgb(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3c1e5a;
+  background: rgb(var(--primary));
   border-radius: 5px;
+  opacity: 0.5;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5a2d85;
+  background: rgb(var(--secondary));
 }

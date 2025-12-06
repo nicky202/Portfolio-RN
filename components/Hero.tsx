@@ -1,132 +1,64 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-import ImgProfile from "@/public/images/about/profile.jpg"; // Reusing the profile image
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
-  return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-background"
-    >
-      {/* Background Gradients */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px]" />
-        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-accent/10 rounded-full blur-[100px]" />
-      </div>
+  const { t } = useTranslation();
 
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10 w-full">
-        {/* Text Content */}
+  return (
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-hero-gradient opacity-20" />
+      <div className="absolute top-20 left-20 w-72 h-72 bg-primary/20 rounded-full blur-[100px] animate-pulse-slow" />
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] animate-pulse-slow" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-left"
         >
-          <motion.h2
-            className="text-xl md:text-2xl font-medium text-secondary mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <motion.span
+            className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-primary text-sm font-medium mb-6 backdrop-blur-sm"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
           >
-            Hello, I&apos;m
-          </motion.h2>
-          <motion.h1
-            className="text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            Anurag <span className="text-primary">.</span>
-          </motion.h1>
-          <motion.h3
-            className="text-3xl md:text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            Front-End Developer
-          </motion.h3>
-          <motion.p
-            className="text-lg text-gray-400 mb-8 max-w-lg leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            A self-taught front-end developer with over 2 years of experience.
-            I build responsive and user-friendly websites & apps. I focus on
-            clean code and efficient design.
-          </motion.p>
+            {t("hero.greeting")}
+          </motion.span>
 
-          <motion.div
-            className="flex flex-wrap gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+            Nicky Rabesoa
+            <span className="block text-gradient mt-2">{t("hero.role")}</span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-foreground/60 max-w-2xl mx-auto mb-10 leading-relaxed">
+            {t("hero.description")}
+          </p>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
             <motion.a
               href="#contact"
-              className="px-8 py-3 bg-gradient-to-r from-primary to-blue-600 rounded-full text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all"
+              className="px-8 py-4 bg-primary text-white rounded-full font-bold hover:bg-primary/90 transition-all hover:shadow-[0_0_20px_rgba(157,78,221,0.5)]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Contact Me
+              {t("hero.contactBtn")}
             </motion.a>
             <motion.a
               href="#projects"
-              className="px-8 py-3 glass-panel rounded-full text-white font-semibold hover:bg-white/10 transition-all border border-white/10"
+              className="px-8 py-4 bg-white/5 text-foreground border border-foreground/10 rounded-full font-bold hover:bg-white/10 transition-all backdrop-blur-sm"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              View Work
+              {t("hero.viewWork")}
             </motion.a>
-          </motion.div>
-        </motion.div>
-
-        {/* Image Content */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative hidden md:block"
-        >
-          <div className="relative w-[400px] h-[400px] mx-auto">
-            {/* Abstract Shapes around image */}
-            <motion.div
-              className="absolute inset-0 border-2 border-primary/30 rounded-full"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div
-              className="absolute inset-4 border-2 border-accent/30 rounded-full"
-              animate={{ rotate: -360 }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            />
-
-            <div className="absolute inset-8 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl shadow-primary/20 bg-gradient-to-b from-white/5 to-transparent">
-              <Image
-                src={ImgProfile}
-                alt="Profile"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity }}
-      >
-        <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1">
-          <div className="w-1 h-3 bg-primary rounded-full" />
-        </div>
-      </motion.div>
+
     </section>
   );
 }

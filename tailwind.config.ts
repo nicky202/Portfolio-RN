@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,18 +10,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0f0518", // Deep purple background
-        primary: "#9d4edd", // Purple accent
-        secondary: "#e0aaff", // Light purple
-        accent: "#4cc9f0", // Cyan/Blue accent
-        card: "rgba(255, 255, 255, 0.05)", // Glassmorphism card bg
+        background: "rgb(var(--background) / <alpha-value>)",
+        foreground: "rgb(var(--foreground) / <alpha-value>)",
+        primary: "rgb(var(--primary) / <alpha-value>)",
+        secondary: "rgb(var(--secondary) / <alpha-value>)",
+        accent: "rgb(var(--accent) / <alpha-value>)",
+        card: "rgba(var(--card), var(--card-opacity))",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "hero-gradient":
-          "linear-gradient(to bottom right, #1a0b2e, #0f0518, #240046)",
+          "linear-gradient(to bottom right, rgb(var(--background)), rgb(var(--primary) / 0.2), rgb(var(--background)))",
       },
       animation: {
         float: "float 6s ease-in-out infinite",
@@ -33,8 +35,8 @@ const config: Config = {
           "50%": { transform: "translateY(-20px)" },
         },
         glow: {
-          "0%": { boxShadow: "0 0 5px #9d4edd, 0 0 10px #9d4edd" },
-          "100%": { boxShadow: "0 0 20px #e0aaff, 0 0 30px #e0aaff" },
+          "0%": { boxShadow: "0 0 5px rgb(var(--primary)), 0 0 10px rgb(var(--primary))" },
+          "100%": { boxShadow: "0 0 20px rgb(var(--secondary)), 0 0 30px rgb(var(--secondary))" },
         },
       },
     },
