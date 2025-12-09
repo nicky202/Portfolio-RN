@@ -1,12 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function CV() {
   const [isHovered, setIsHovered] = useState(false);
   const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -14,6 +19,10 @@ export default function CV() {
     link.download = "CV_Rabesoa_Nicky.pdf";
     link.click();
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <section id="cv" className="py-20 relative overflow-hidden">

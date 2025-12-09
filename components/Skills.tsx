@@ -2,41 +2,52 @@
 
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface Skill {
   name: string;
-  emoji: string;
+  iconUrl: string;
 }
 
 const skillsByCategory: Record<string, Skill[]> = {
   Frontend: [
-    { name: "React", emoji: "⚛️" },
-    { name: "React Native", emoji: "📱" },
-    { name: "CSS/Tailwind", emoji: "🎨" },
-    { name: "Framer Motion", emoji: "✨" },
+    { name: "React", iconUrl: "https://cdn.simpleicons.org/react" },
+    { name: "React Native", iconUrl: "https://cdn.simpleicons.org/react" },
+    { name: "CSS/Tailwind", iconUrl: "https://cdn.simpleicons.org/tailwindcss" },
+    { name: "Framer Motion", iconUrl: "https://cdn.simpleicons.org/framer" },
   ],
   Backend: [
-    { name: "Django", emoji: "🐍" },
-    { name: "Laravel", emoji: "🔧" },
-    { name: "Node.js", emoji: "🟢" },
-    { name: "Express.js", emoji: "🚀" },
+    { name: "Django", iconUrl: "https://cdn.simpleicons.org/django" },
+    { name: "Laravel", iconUrl: "https://cdn.simpleicons.org/laravel" },
+    { name: "Node.js", iconUrl: "https://cdn.simpleicons.org/nodedotjs" },
+    { name: "Express.js", iconUrl: "https://cdn.simpleicons.org/express" },
   ],
   Fullstack: [
-    { name: "TypeScript", emoji: "📘" },
-    { name: "Next.js", emoji: "▲" },
-    { name: "JavaScript", emoji: "📜" },
-    { name: "Python", emoji: "🐍" },
-    { name: "Docker", emoji: "🐳" },
+    { name: "TypeScript", iconUrl: "https://cdn.simpleicons.org/typescript" },
+    { name: "Next.js", iconUrl: "https://cdn.simpleicons.org/nextdotjs" },
+    { name: "JavaScript", iconUrl: "https://cdn.simpleicons.org/javascript" },
+    { name: "Python", iconUrl: "https://cdn.simpleicons.org/python" },
+    { name: "Docker", iconUrl: "https://cdn.simpleicons.org/docker" },
   ],
   Database: [
-    { name: "MongoDB", emoji: "🍃" },
-    { name: "PostgreSQL", emoji: "🐘" },
-    { name: "Redis", emoji: "🔴" },
+    { name: "MongoDB", iconUrl: "https://cdn.simpleicons.org/mongodb" },
+    { name: "PostgreSQL", iconUrl: "https://cdn.simpleicons.org/postgresql" },
+    { name: "Redis", iconUrl: "https://cdn.simpleicons.org/redis" },
   ],
 };
 
 export default function Skills() {
   const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <section id="skills" className="py-20 relative overflow-hidden">
@@ -87,7 +98,14 @@ export default function Skills() {
                       }}
                       className="bg-card/5 border border-foreground/10 px-4 py-2.5 rounded-lg text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-primary/10 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(var(--primary),0.3)] transition-all duration-300 cursor-default flex items-center gap-2.5"
                     >
-                      <span className="text-lg">{skill.emoji}</span>
+                      <Image
+                        src={skill.iconUrl}
+                        alt={skill.name}
+                        width={18}
+                        height={18}
+                        className="opacity-70"
+                        unoptimized
+                      />
                       <span>{skill.name}</span>
                     </motion.div>
                   ))}

@@ -8,7 +8,12 @@ import { useTranslation } from "react-i18next";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +50,7 @@ export default function Navigation() {
           {/* Centered Navigation */}
           <div className="flex items-center space-x-4 md:space-x-8 bg-background/5 px-6 py-3 rounded-full border border-foreground/10 backdrop-blur-sm">
             <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
+              {mounted && navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}

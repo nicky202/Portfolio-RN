@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ImgPortfolio from "@/public/images/projects/portfolio.png";
 import ImgLaf from "@/public/images/projects/laf.png";
 import ImgLaf2 from "@/public/images/projects/laf2.png";
@@ -15,13 +15,13 @@ import { useTranslation } from "react-i18next";
 const staticProjectData = [
   {
     tech: ["React", "TypeScript", "Django", "PostgreSQL", "Docker", "Celery"],
-    image: ImgPureControl,
+    image: ImgPureControl3,
     images: [ImgPureControl, ImgPureControl2, ImgPureControl3],
   },
   {
     tech: ["React.js", "Django", "PostgreSQL", "Docker", "Celery", "Redis"],
     image: ImgLaf,
-    images: [ImgLaf, ImgLaf2, ImgLaf3],
+    images: [ImgLaf2, ImgLaf, ImgLaf3],
   },
   {
     tech: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
@@ -32,8 +32,14 @@ const staticProjectData = [
 
 export default function Projects() {
   const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
   const [selectedProjectIndex, setSelectedProjectIndex] = useState<number | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const translatedProjects = (t("projects.items", { returnObjects: true }) as any[]).map((item, index) => ({
     ...item,
@@ -52,6 +58,20 @@ export default function Projects() {
 
   const selectedProject = selectedProjectIndex !== null ? translatedProjects[selectedProjectIndex] : null;
 
+  // Project carousel navigation
+  const nextProject = () => {
+    setCurrentProjectIndex((prev) =>
+      prev === translatedProjects.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevProject = () => {
+    setCurrentProjectIndex((prev) =>
+      prev === 0 ? translatedProjects.length - 1 : prev - 1
+    );
+  };
+
+  // Modal image carousel navigation
   const nextImage = () => {
     if (selectedProject) {
       setCurrentImageIndex((prev) =>
@@ -67,6 +87,10 @@ export default function Projects() {
       );
     }
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <>
@@ -85,72 +109,93 @@ export default function Projects() {
             <p className="text-foreground/60">{t("projects.subtitle")}</p>
           </motion.div>
 
-          <div className="space-y-32">
-            {translatedProjects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  } gap-12 items-center`}
-              >
-                {/* Project Info */}
-                <div className="flex-1 space-y-6">
-                  <div className="text-accent font-medium tracking-wider text-sm">
-                    {project.type}
-                  </div>
-                  <h3 className="text-3xl font-bold text-foreground">{project.title}</h3>
+          {/* Carousel Container */}
+          <div className="relative">
+            <AnimatePresence mode="wait">
+              {translatedProjects.map((project, index) => (
+                index === currentProjectIndex && (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -100 }}
+                    transition={{ duration: 0.5 }}
+                    className="flex flex-col md:flex-row gap-12 items-center"
+                  >
+                    {/* Project Info */}
+                    <div className="flex-1 space-y-6">
+                      <h3 className="text-3xl font-bold text-foreground">{project.title}</h3>
 
-                  <div className="glass-panel p-6 rounded-xl text-foreground/80 leading-relaxed shadow-lg">
-                    {project.description}
-                  </div>
+                      <div className="glass-panel rounded-xl text-foreground/80 leading-relaxed shadow-lg">
+                        {project.description}
+                      </div>
 
-                  <div className="flex flex-wrap gap-3">
-                    {project.tech.map((tech: string) => (
-                      <span
-                        key={tech}
-                        className="text-foreground/60 text-sm font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.map((tech: string) => (
+                          <span
+                            key={tech}
+                            className="bg-background/50 backdrop-blur-sm border border-foreground/10 px-3 py-1.5 rounded-full text-xs font-medium text-foreground/70 hover:text-foreground hover:bg-primary/10 hover:border-primary/30 transition-all duration-300"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
 
-                  <div className="flex gap-4 pt-4">
-                    <button
+                    </div>
+
+                    {/* Project Image */}
+                    <div
+                      className="w-full flex-1 relative group cursor-pointer"
                       onClick={() => openModal(index)}
-                      className="text-foreground hover:text-primary transition-colors"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    </button>
-                    <a href="#" className="text-foreground hover:text-primary transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                    </a>
-                  </div>
-                </div>
+                      <div className="relative h-[300px] w-full rounded-xl overflow-hidden border border-foreground/10 shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
+                        <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay" />
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-contain"
+                          unoptimized
+                        />
+                      </div>
+                      {/* Decorative background element */}
+                      <div className="absolute -inset-4 bg-gradient-to-r from-primary to-accent opacity-20 blur-xl -z-10 rounded-xl" />
+                    </div>
+                  </motion.div>
+                )
+              ))}
+            </AnimatePresence>
 
-                {/* Project Image */}
-                <div
-                  className="flex-1 relative group cursor-pointer"
-                  onClick={() => openModal(index)}
-                >
-                  <div className="relative h-[300px] md:h-[400px] w-full rounded-xl overflow-hidden border border-foreground/10 shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
-                    <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay" />
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover"
-                      unoptimized
-                    />
-                  </div>
-                  {/* Decorative background element */}
-                  <div className={`absolute -inset-4 bg-gradient-to-r from-primary to-accent opacity-20 blur-xl -z-10 rounded-xl transition-opacity duration-500 ${index % 2 === 0 ? 'right-0' : 'left-0'}`} />
-                </div>
-              </motion.div>
-            ))}
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevProject}
+              className="absolute left-0 md:-left-10 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-background/80 hover:bg-background border border-foreground/10 text-foreground p-4 rounded-full transition-all backdrop-blur-sm shadow-xl hover:scale-110 z-20"
+              aria-label="Previous project"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button
+              onClick={nextProject}
+              className="absolute right-0 md:-right-10 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-background/80 hover:bg-background border border-foreground/10 text-foreground p-4 rounded-full transition-all backdrop-blur-sm shadow-xl hover:scale-110 z-20"
+              aria-label="Next project"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+
+            {/* Dot Indicators */}
+            <div className="flex justify-center gap-3 mt-12">
+              {translatedProjects.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentProjectIndex(index)}
+                  className={`transition-all ${index === currentProjectIndex
+                    ? "w-12 h-3 bg-gradient-to-r from-primary to-accent rounded-full"
+                    : "w-3 h-3 bg-foreground/20 hover:bg-foreground/40 rounded-full"
+                    }`}
+                  aria-label={`Go to project ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -196,7 +241,7 @@ export default function Projects() {
                       src={selectedProject.images[currentImageIndex]}
                       alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
                       fill
-                      className="object-contain"
+                      className="object-cover"
                       unoptimized
                     />
                   </motion.div>
