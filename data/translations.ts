@@ -11,7 +11,7 @@ export const resources = {
             hero: {
                 greeting: "Hello, I'm",
                 role: "Fullstack Developer",
-                description: "I build accessible, pixel-perfect, and performant web experiences.",
+                description: "Clean code. Smooth interactions. Exceptional user experience.",
                 contactBtn: "Contact Me",
                 viewWork: "View Work",
                 downloadCv: "Download CV",
@@ -19,9 +19,9 @@ export const resources = {
             about: {
                 title: "About Me",
                 content: [
-                    "I am a passionate developer with a Master's degree in Computer Science.",
-                    "I specialize in building modern web applications using React, Next.js, and Node.js.",
-                    "I love learning new technologies and solving complex problems.",
+                    "I am a full-stack developer with a Master’s degree in Computer Science and hands-on experience building production-grade applications.",
+                    "Skilled in React, Next.js, Django, Node.js, and cloud-ready architectures, I create scalable, maintainable, and high-performance digital products.",
+                    "I’m committed to continuous learning and always strive for clean code, thoughtful design, and exceptional user experience.",
                 ],
             },
             skills: {
@@ -81,7 +81,7 @@ export const resources = {
             hero: {
                 greeting: "Bonjour, je suis",
                 role: "Développeur Fullstack",
-                description: "Je conçois des expériences web accessibles, pixel-perfect et performantes.",
+                description: "Code propre. Interactions fluides. Expérience utilisateur exceptionnelle.",
                 contactBtn: "Me Contacter",
                 viewWork: "Voir mes projets",
                 downloadCv: "Télécharger CV",
@@ -89,9 +89,9 @@ export const resources = {
             about: {
                 title: "À Propos",
                 content: [
-                    "Je suis un développeur passionné avec un Master 2 en Informatique.",
-                    "Je me spécialise dans la création d'applications web modernes utilisant React, Next.js et Node.js.",
-                    "J'aime apprendre de nouvelles technologies et résoudre des problèmes complexes.",
+                    "Je suis un développeur full-stack avec un Master en Informatique et une solide expérience dans la création d’applications destinées à la production.",
+                    "Compétent en React, Next.js, Django, Node.js et les architectures cloud-ready, je crée des produits numériques évolutifs, maintenables et hautement performants.",
+                    "Je suis engagé dans un apprentissage continu et je vise toujours un code propre, un design réfléchi et une expérience utilisateur exceptionnelle.",
                 ],
             },
             skills: {
