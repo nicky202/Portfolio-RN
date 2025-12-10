@@ -49,7 +49,7 @@ export const resources = {
                     },
                     {
                         title: "Portfolio",
-                        description: "Modern, high-performance portfolio with unique geometric design and smooth animations.",
+                        description: "The website you are currently visiting. A modern, high-performance portfolio built with Next.js, featuring smooth animations and internationalization.",
                         type: "Personal Project",
                     }
                 ]
@@ -66,6 +66,9 @@ export const resources = {
             cv: {
                 title: "Curriculum Vitae",
                 download: "Download PDF",
+                chatPref: "Prefer to chat?",
+                contactLink: "Contact me",
+                directly: "directly.",
             },
         }
     },
@@ -119,7 +122,7 @@ export const resources = {
                     },
                     {
                         title: "Portfolio",
-                        description: "Portfolio moderne et performant avec un design géométrique unique et des animations fluides.",
+                        description: "Le site que vous visitez actuellement. Un portfolio moderne et performant construit avec Next.js, avec des animations fluides et une gestion multilingue.",
                         type: "Projet Personnel",
                     }
                 ]
@@ -136,6 +139,9 @@ export const resources = {
             cv: {
                 title: "Curriculum Vitae",
                 download: "Télécharger PDF",
+                chatPref: "Vous préférez discuter ?",
+                contactLink: "Contactez-moi",
+                directly: "directement.",
             },
         }
     },

@@ -90,10 +90,7 @@ export default function Contact() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="text-gradient">{t("contact.title")}</span>
             </h2>
-            <h3 className="text-2xl font-semibold text-foreground mb-2">{t("contact.title")}</h3>
-            <p className="text-foreground/60">
-              {t("contact.title")}
-            </p>
+
           </div>
 
           <div className="glass-panel p-8 md:p-10 rounded-2xl shadow-2xl relative overflow-hidden">
@@ -177,7 +174,7 @@ export default function Contact() {
             className="mt-12 flex justify-center space-x-8"
           >
             <a
-              href="https://github.com"
+              href="https://github.com/nicky202"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
@@ -188,7 +185,7 @@ export default function Contact() {
               </svg>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://linkedin.com/in/nicky-rabesoa-ba25ba1a1"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"

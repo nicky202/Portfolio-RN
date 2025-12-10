@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import ImgPortfolio from "@/public/images/projects/portfolio.png";
+import ImgPortfolio1 from "@/public/images/projects/portfolio1.png";
 import ImgLaf from "@/public/images/projects/laf.png";
 import ImgLaf2 from "@/public/images/projects/laf2.png";
 import ImgLaf3 from "@/public/images/projects/laf3.png";
@@ -26,7 +27,7 @@ const staticProjectData = [
   {
     tech: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
     image: ImgPortfolio,
-    images: [ImgPortfolio],
+    images: [ImgPortfolio, ImgPortfolio1],
   },
 ];
 
@@ -126,7 +127,7 @@ export default function Projects() {
                     <div className="flex-1 space-y-6">
                       <h3 className="text-3xl font-bold text-foreground">{project.title}</h3>
 
-                      <div className="glass-panel rounded-xl text-foreground/80 leading-relaxed shadow-lg">
+                      <div className="glass-panel rounded-xl text-foreground/80 leading-relaxed shadow-lg p-10">
                         {project.description}
                       </div>
 

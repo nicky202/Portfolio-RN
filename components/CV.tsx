@@ -111,7 +111,7 @@ export default function CV() {
             className="mt-8 text-center"
           >
             <p className="text-gray-500">
-              Prefer to chat? <a href="#contact" className="text-primary hover:text-accent transition-colors underline decoration-primary/30 hover:decoration-accent">Contact me</a> directly.
+              {t("cv.chatPref")} <a href="#contact" className="text-primary hover:text-accent transition-colors underline decoration-primary/30 hover:decoration-accent">{t("cv.contactLink")}</a> {t("cv.directly")}
             </p>
           </motion.div>
         </motion.div>
